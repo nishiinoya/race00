@@ -1,9 +1,27 @@
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
     display: flex;
     justify-content: center;
-    padding: 40px;
+    align-items: center;
+    height: 100vh;
+}
+
+.layout {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.SideBar {
+    width: 300px;
+    background: #d18585;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(152, 152, 152, 0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 #calculator {
@@ -12,6 +30,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(152, 152, 152, 0.2);
     padding: 20px;
+    display: block;
+    flex-direction: column;
 }
 
 #calculator input {
@@ -23,6 +43,11 @@ body {
     color: #707070;
     font-size: 1.9rem;
     padding: 0 30 px;
+}
+
+#result {
+    padding-left: 10px;
+    text-align: left;
 }
 
 .header {
@@ -110,7 +135,7 @@ input#result {
     position: absolute;
     bottom: 50px;
     left: 0;
-    background-color: #fff;
+    background-color: #fffceb;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
@@ -127,7 +152,7 @@ input#result {
 }
 
 .dropdown a:hover {
-    background-color: #f0f0f0;
+    background-color: #fcdd9e;
 }
 
 .menu-container:hover .dropdown,

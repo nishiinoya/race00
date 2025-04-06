@@ -9,3 +9,29 @@ document.addEventListener('click', function(e) {
         menu.style.display = 'none';
     }
 });
+
+function addMathButtons() {
+    var mathButtons = document.getElementById('mathButtons');
+    if (mathButtons.style.display === "none") {
+        mathButtons.style.display = "grid";
+    } else {
+        mathButtons.style.display = "none";
+    }
+}
+
+function sideBarOpen() {
+    document.getElementById("SideBar").style.display = "block";
+}
+
+function sideBarClose() {
+    document.getElementById("SideBar").style.display = "none";
+}
+
+function addMemoryButtons() {
+    var memoryButtons = document.getElementById('memoryButtons');
+    if (memoryButtons.style.display === "none") {
+        memoryButtons.style.display = "grid";
+    } else {
+        memoryButtons.style.display = "none";
+    }
+}
