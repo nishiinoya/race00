@@ -33,7 +33,7 @@
                 <i class="fa-solid fa-calculator"></i>
                 <h1>Calculator</h1>
             </div>
-            <input disabled type="text" id="result">
+            <input disabled type="text" id="result" value = "0">
             <div class="buttons" id="memoryButtons" style="display: none;">
                 <button>MR</button>
                 <button>MC</button>
@@ -42,10 +42,10 @@
 
             </div>
             <div class="buttons">
-                <button style="background-color:  #B0C4DE ;"><i class="fa-solid fa-c"></i></button>
-                <button>+/- </button>
+                <button style="background-color:  #B0C4DE ;" onclick="cleanInput()"><i class="fa-solid fa-c"></i></button>
+                <button onclick="printNegative()">+/- </button>
                 <button><i class="fa-solid fa-percent"></i></button>
-                <button><i class="fa-solid fa-divide"></i></button>
+                <button onclick="printOperation('/')"><i class="fa-solid fa-divide" ></i></button>
             </div>
             <div class="buttons" id="mathButtons" style="display: none;">
                 <button><i class="fa-solid fa-square-root-variable"></i></button>
@@ -54,24 +54,24 @@
                 <button>sin</button>
             </div>
             <div class="buttons">
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button style="background-color: #F4C430;"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="printNumber(7)">7</button>
+                <button onclick="printNumber(8)">8</button>
+                <button onclick="printNumber(9)">9</button>
+                <button style="background-color: #F4C430;" onclick="printOperation('x')"><i class="fa-solid fa-xmark"></i></button>
 
             </div>
             <div class="buttons">
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button style="background-color: #F4C430;"><i class="fa-solid fa-minus"></i></button>
+                <button onclick="printNumber(4)">4</button>
+                <button onclick="printNumber(5)">5</button>
+                <button onclick="printNumber(6)">6</button>
+                <button style="background-color: #F4C430;" onclick="printOperation('-')"><i class="fa-solid fa-minus"></i></button>
 
             </div>
             <div class="buttons">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button style="background-color: #F4C430;"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="printNumber(1)">1</button>
+                <button onclick="printNumber(2)">2</button>
+                <button onclick="printNumber(3)">3</button>
+                <button style="background-color: #F4C430;" onclick="printOperation('+')"><i class="fa-solid fa-plus"></i></button>
 
             </div>
             <div class="buttons">
@@ -87,8 +87,8 @@
                         <a href="#" onclick="resetToRegular()">Regular</a>
                     </div>
                 </div>
-                <button>0</button>
-                <button>.</button>
+                <button onclick="printNumber(0)">0</button>
+                <button onclick="printPoint()">.</button>
                 <button><i class="fa-solid fa-equals"></i></button>
             </div>
 
@@ -96,6 +96,7 @@
     </div>
     <script src="https://kit.fontawesome.com/df44603627.js" crossorigin="anonymous"></script>
     <script src=" js/script.js"></script>
+    <script src=" js/print.js"></script>
 </body>
 
 </html>
