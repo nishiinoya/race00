@@ -14,14 +14,18 @@ body {
     gap: 20px;
 }
 
-.SideBar {
-    width: 300px;
-    background: #d18585;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(152, 152, 152, 0.2);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.sidebar {
+    width: 200px;
+    height: auto;
+    background-color: #B0C4DE;
+    border-radius: 10px
+}
+
+.close {
+    background-color: #B0C4DE;
+    size: 13px;
+    position: fixed;
+    border: none;
 }
 
 #calculator {

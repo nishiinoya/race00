@@ -19,12 +19,17 @@ function addMathButtons() {
     }
 }
 
-function sideBarOpen() {
-    document.getElementById("SideBar").style.display = "block";
+function sideBar(id) {
+    var bar = document.getElementById(id);
+    if (bar.style.display === "none" || bar.style.display === "") {
+        bar.style.display = "flex";
+    } else {
+        bar.style.display = "none";
+    }
 }
 
-function sideBarClose() {
-    document.getElementById("SideBar").style.display = "none";
+function sideBarClose(id) {
+    document.getElementById(id).style.display = "none";
 }
 
 function addMemoryButtons() {
@@ -34,4 +39,12 @@ function addMemoryButtons() {
     } else {
         memoryButtons.style.display = "none";
     }
+}
+
+function resetToRegular() {
+    sideBarClose('HistorySidebar');
+    sideBarClose('MemorySidebar');
+    sideBarClose('ConvertSidebar');
+    document.getElementById("memoryButtons").style.display = "none";
+    document.getElementById("mathButtons").style.display = "none";
 }
