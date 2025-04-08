@@ -12,20 +12,20 @@
     <div class="layout">
         <!-- Memory Management Sidebar -->
         <div id="MemorySidebar" class="sidebar" style="display: none;">
-            <button onclick="closeSidebar('MemorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="sideBarClose('MemorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
             <p>Memory management</p>
         </div>
 
         <!-- Converter Sidebar -->
         <div id="ConvertSidebar" class="sidebar" style="display: none;">
-            <button onclick="closeSidebar('ConvertSidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="sideBarClose('ConvertSidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
             <p>This is for conversions</p>
         </div>
 
         <!-- History Sidebar -->
         <div id="HistorySidebar" class="sidebar" style="display: none;">
-            <button onclick="closeSidebar('HistorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
-            <p>This is your calculation history</p>
+            <button onclick="sideBarClose('HistorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
+            <p>History</p>
             <ul id="historyList"></ul>
             <!-- List for displaying history -->
         </div>
@@ -35,7 +35,7 @@
                 <i class="fa-solid fa-calculator"></i>
                 <h1>Calculator</h1>
             </div>
-            <input disabled type="text" id="result" value="0">
+            <div id="input_wraper"><input disabled type="text" id="result" value="0"></div>
             <div class="buttons" id="memoryButtons" style="display: none;">
                 <button>MR</button>
                 <button>MC</button>
