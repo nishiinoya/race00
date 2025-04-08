@@ -26,6 +26,8 @@
         <div id="HistorySidebar" class="sidebar" style="display: none;">
             <button onclick="closeSidebar('HistorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
             <p>This is your calculation history</p>
+            <ul id="historyList"></ul>
+            <!-- List for displaying history -->
         </div>
         <!-- Calculator -->
         <div id="calculator">
@@ -33,7 +35,7 @@
                 <i class="fa-solid fa-calculator"></i>
                 <h1>Calculator</h1>
             </div>
-            <input disabled type="text" id="result" value = "0">
+            <input disabled type="text" id="result" value="0">
             <div class="buttons" id="memoryButtons" style="display: none;">
                 <button>MR</button>
                 <button>MC</button>
@@ -89,7 +91,7 @@
                 </div>
                 <button onclick="printNumber(0)">0</button>
                 <button onclick="printPoint()">.</button>
-                <button><i class="fa-solid fa-equals"></i></button>
+                <button onclick="calculate()"><i class="fa-solid fa-equals"></i></button>
             </div>
 
         </div>

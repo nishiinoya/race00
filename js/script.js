@@ -19,12 +19,12 @@ function addMathButtons() {
     }
 }
 
-function sideBar(id) {
-    var bar = document.getElementById(id);
-    if (bar.style.display === "none" || bar.style.display === "") {
-        bar.style.display = "flex";
+function sideBar(sidebarId) {
+    let sidebar = document.getElementById(sidebarId);
+    if (sidebar.style.display === "none") {
+        sidebar.style.display = "block";
     } else {
-        bar.style.display = "none";
+        sidebar.style.display = "none";
     }
 }
 
