@@ -20,7 +20,15 @@ body {
     background-color: #B0C4DE;
     border-radius: 10px;
 }
-.sidebar p{
+
+.sidebar h3 {
+    text-align: center;
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.sidebar p {
     text-align: center;
 }
 
@@ -29,6 +37,122 @@ body {
     size: 13px;
     position: fixed;
     border: none;
+}
+
+.conversion-form {
+    display: none;
+    margin-top: 20px;
+}
+
+.conversion-form h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.conversion-form label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.conversion-form select,
+.conversion-form input {
+    margin: 10px 0;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+#sidebar-menu {
+    list-style-type: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#sidebar-menu li {
+    margin: 5px 0;
+}
+
+#sidebar-menu a {
+    display: block;
+    padding: 5px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+#sidebar-menu a:hover {
+    background-color: #f9c74f;
+    color: white;
+    transform: translateX(5px);
+}
+
+#sidebar-menu a i {
+    margin-right: 10px;
+    color: #f9c74f;
+}
+
+#sidebar-menu a:hover i {
+    color: white;
+}
+
+.conversion-form button {
+    background-color: #f9c74f;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.conversion-form button:hover {
+    background-color: #ffb347;
+}
+
+.conversion-form p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Result Text */
+
+#length-result,
+#weight-result,
+#area-result,
+#numeral-result {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+}
+
+
+/* Media Queries for responsiveness */
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+}
+
+@media (max-width: 500px) {
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+    .conversion-form input,
+    .conversion-form select,
+    .conversion-form button {
+        font-size: 14px;
+    }
 }
 
 #calculator {
@@ -40,6 +164,7 @@ body {
     display: block;
     flex-direction: column;
 }
+
 .header {
     display: flex;
     align-items: center;
@@ -65,10 +190,12 @@ body {
     box-shadow: inset -5px -5px 9px rgba(225, 225, 225, 0.35), inset -5px 5px 9px rgba(94, 104, 121, 0.3);
     color: #707070;
 }
-#input_wraper{
+
+#input_wraper {
     text-align: end;
 }
-#input_wraper::before{
+
+#input_wraper::before {
     content: "";
     position: relative;
     z-index: 10;
@@ -77,6 +204,7 @@ body {
     top: 50px;
     padding: 0 5px;
 }
+
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

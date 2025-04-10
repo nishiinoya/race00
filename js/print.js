@@ -1,5 +1,6 @@
 let result = 0
 let history = [];
+let memory = 0;
 
 function printNumber(number) {
     let input = document.getElementById("result")
@@ -26,7 +27,17 @@ function printOperation(operation) {
     let text = input.getAttribute("value");
     if (text === null) return;
     if (text.match(/\d$/) === null) return;
-    text += operation
+    if (text === "0") {
+        text = "";
+    }
+
+    if (text.match(/[\d\)]$/) === null && operation !== "√") return;
+
+    if (operation === "√") {
+        text += "√(";
+    } else {
+        text += operation;
+    }
     input.setAttribute("value", text)
 }
 
@@ -50,7 +61,15 @@ function calculate() {
     if (input === null || input === "0") return;
 
     try {
-        result = eval(input.replace("x", "*").replace("÷", "/"));
+        let expression = input
+            .replace(/÷/g, "/")
+            .replace(/x/g, "*")
+            .replace(/√\(/g, "Math.sqrt(");
+        const openParens = (expression.match(/\(/g) || []).length;
+        const closeParens = (expression.match(/\)/g) || []).length;
+        expression += ")".repeat(openParens - closeParens);
+
+        result = eval(expression);
         document.getElementById("result").setAttribute("value", result);
         history.push(input + " = " + result);
         updateHistory();
@@ -70,4 +89,43 @@ function updateHistory() {
         listItem.textContent = entry;
         historyList.appendChild(listItem);
     });
+}
+
+function memoryRecall() {
+    document.getElementById("result").setAttribute("value", memory);
+    updateMemoryDisplay();
+}
+
+function memoryClear() {
+    memory = 0;
+    updateMemoryDisplay();
+}
+
+function memoryAdd() {
+    let current = parseFloat(document.getElementById("result").getAttribute("value"));
+    if (!isNaN(current)) {
+        memory += current;
+        updateMemoryDisplay();
+    }
+}
+
+function memorySubtract() {
+    let current = parseFloat(document.getElementById("result").getAttribute("value"));
+    if (!isNaN(current)) {
+        memory -= current;
+        updateMemoryDisplay();
+    }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("btnMR").addEventListener("click", memoryRecall);
+    document.getElementById("btnMC").addEventListener("click", memoryClear);
+    document.getElementById("btnMPlus").addEventListener("click", memoryAdd);
+    document.getElementById("btnMMinus").addEventListener("click", memorySubtract);
+});
+
+function updateMemoryDisplay() {
+    const memoryDisplay = document.getElementById("memoryValue");
+    if (memoryDisplay) {
+        memoryDisplay.textContent = memory;
+    }
 }
