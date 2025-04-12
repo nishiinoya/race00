@@ -114,8 +114,10 @@
             <button onclick="sideBarClose('HistorySidebar')" class="close"><i class="fa-solid fa-xmark"></i></button>
             <p>History</p>
             <ul id="historyList"></ul>
-            <button onclick="copyToClipboard()">Copy to Clipboard</button>
-            <button onclick="insertFromClipboard()">insert from Clipboard</button>
+            <div id="clipboard">
+             <button onclick="copyToClipboard()" class="clipboard">Copy</button>
+             <button onclick="insertFromClipboard()" class="clipboard">Paste</button>
+            </div>
             <!-- List for displaying history -->
         </div>
         <!-- Calculator -->
@@ -197,9 +199,10 @@
         </div>
     </div>
     <script src="https://kit.fontawesome.com/df44603627.js" crossorigin="anonymous"></script>
-    <script src=" js/script.js"></script>
-    <script src=" js/print.js"></script>
-    <script src=" js/convertions.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/print.js"></script>
+    <script src="./js/convertions.js"></script>
+    <script src="./js/memory.js"></script>
 </body>
 
 </html>

@@ -6,8 +6,8 @@ function printNumber(number) {
     let input = document.getElementById("result")
     let text = input.getAttribute("value");
     if (text === null) return;
-    if (text.match(/\d+$/) !== null && text.match(/\d+$/)[0] == "0") {
-        text = text.replace(/\d+$/, "")
+    if ((text.match(/\d+$/) !== null && text.match(/\d+$/)[0] == "0") || text.match(/^[A-Za-z]+$/) !== null) {
+        text = ""
     }
     if(text.charAt(text.length - 1) == "!") return;
     text += number
@@ -42,7 +42,7 @@ function printOperation(operation) {
 
 
     if (operation === "√") {
-        text += "√(";
+        text = "√(";
     } else {
         if(text.charAt(0) == "-" && document.querySelector("#content_before").innerHTML != ""){
             document.querySelector("#content_before").innerHTML += "(" + text + ")" + operation;
@@ -65,10 +65,10 @@ function printNegative() {
     let input = document.getElementById("result")
     let text = input.getAttribute("value");
     if (text === null) return;
-    if (text.match(/\d+$/) === null) return;
-    let number = text.match(/\d+$/)[0]
+    if (text.match(/(\d+)(\.\d+)?$/) === null) return;
+    let number = text.match(/(\d+)(\.\d+)?$/)[0]
     if (number == "0") return;
-    text = text.replace(/\d+$/, "")
+    text = text.replace(/(\d+)(\.\d+)?$/, "")
     if(text.charAt(0) == "-"){
         input.setAttribute("value", number)
         return;
@@ -106,6 +106,12 @@ function stringValidator(text) {
     });
     return str;
 }
+function evaluation(equal) {
+    if (/[^-()\d/*+. ]/.test(equal)) {
+      return;
+    }
+    return new Function(`return ${equal}`)();
+}
 function calculate() {
     let text = document.getElementById("result").getAttribute("value")
     if(text.charAt(0) == "-" && document.querySelector("#content_before").innerHTML != ""){
@@ -114,7 +120,7 @@ function calculate() {
         document.querySelector("#content_before").innerHTML += text;
     }
     let input = document.querySelector("#content_before").innerHTML;
-
+    let forHistory = input;
 
     try{
         input = stringValidator(input)
@@ -127,17 +133,18 @@ function calculate() {
     if (input === null || input === "0") return;
 
     try {
+        document.querySelector("#content_before").innerHTML = "";
         let expression = input
-            .replace(/÷/g, "/")
-            .replace(/x/g, "*")
-            .replace(/√\(/g, "Math.sqrt(");
+        .replace(/÷/g, "/")
+        .replace(/x/g, "*")
+        .replace(/√\(/g, "Math.sqrt(");
         const openParens = (expression.match(/\(/g) || []).length;
         const closeParens = (expression.match(/\)/g) || []).length;
         expression += ")".repeat(openParens - closeParens);
-
-        result = eval(expression);
+        result = evaluation(expression);
         document.getElementById("result").setAttribute("value", result);
-        history.push(input + " = " + result);
+        
+        history.push(forHistory + " = " + result);
         updateHistory();
     } catch (error) {
         document.getElementById("result").setAttribute("value", "Error");
@@ -157,7 +164,6 @@ function updateHistory() {
     });
 }
 
-
 function copyToClipboard(){
     const text = history.join(";");
     navigator.clipboard.writeText(text)
@@ -165,45 +171,18 @@ function copyToClipboard(){
 
 async function insertFromClipboard(){
     let text = await navigator.clipboard.readText();
-    history = text.split(";")
-    updateHistory()
-}
-
-function memoryRecall() {
-    document.getElementById("result").setAttribute("value", memory);
-    updateMemoryDisplay();
-}
-
-function memoryClear() {
-    memory = 0;
-    updateMemoryDisplay();
-}
-
-function memoryAdd() {
-    let current = parseFloat(document.getElementById("result").getAttribute("value"));
-    if (!isNaN(current)) {
-        memory += current;
-        updateMemoryDisplay();
+    text = text.split(";")
+    let flag = true;
+    text.forEach((element)=>{
+        //console.log(element)
+        if(!element.match(/^((\()?-?(\d+)(\.\d+)?(!+)?(\))?([+\-x^\/%](\()?-?(\d+)(\.\d+)?(!+)?(\))?)*)? = (\()?-?(\d+)(\.\d+)?(\))?$/)) flag = false;
+    })
+    if(flag){
+        history = text;
+        updateHistory()
     }
-}
-
-function memorySubtract() {
-    let current = parseFloat(document.getElementById("result").getAttribute("value"));
-    if (!isNaN(current)) {
-        memory -= current;
-        updateMemoryDisplay();
-    }
-}
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("btnMR").addEventListener("click", memoryRecall);
-    document.getElementById("btnMC").addEventListener("click", memoryClear);
-    document.getElementById("btnMPlus").addEventListener("click", memoryAdd);
-    document.getElementById("btnMMinus").addEventListener("click", memorySubtract);
-});
-
-function updateMemoryDisplay() {
-    const memoryDisplay = document.getElementById("memoryValue");
-    if (memoryDisplay) {
-        memoryDisplay.textContent = memory;
+    else{
+        history = []
+        throw "Error"
     }
 }
