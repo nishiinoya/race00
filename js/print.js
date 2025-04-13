@@ -6,8 +6,10 @@ function printNumber(number) {
     let input = document.getElementById("result")
     let text = input.getAttribute("value");
     if (text === null) return;
-    if ((text.match(/\d+$/) !== null && text.match(/\d+$/)[0] == "0") || text.match(/^[A-Za-z]+$/) !== null) {
+    if ((text.match(/\d+$/) !== null && text.match(/\d+$/)[0] == "0") || text.match(/^[A-Za-z]+$/) !== null || input.getAttribute("class") ==="res") {
         text = ""
+        input.setAttribute("value", text)
+        document.getElementById("result").className = "";
     }
     if(number === "pi"){
         input.setAttribute("value", "3.14159265358979323846")
@@ -19,6 +21,7 @@ function printNumber(number) {
 }
 
 function printPoint() {
+    if(document.getElementById("result").getAttribute("class") ==="res") return
     let input = document.getElementById("result").getAttribute("value")
     if (input === null) return;
     const regex = /[\d\.]+$/
@@ -28,6 +31,7 @@ function printPoint() {
 }
 
 function printOperation(operation) {
+    if(document.getElementById("result").getAttribute("class") ==="res" && operation !== "√") return
     let input = document.getElementById("result")
     let text = input.getAttribute("value");
     if (text === null) return;
@@ -35,7 +39,7 @@ function printOperation(operation) {
     // if (text === "0") {
     //     text = "";
     // }
-    if (text.match(/[\d\)!]$/) === null && operation !== "√" && operation !== "!") return;
+    if (text.match(/[\d\)]$/) === null && operation !== "√") return;
     if(operation === "^" && text.indexOf("^") !== -1) return;
     if(operation === "^" && text.indexOf("%") !== -1) return;
     if (operation === "!" || operation === "^" || operation === "%"){
@@ -47,15 +51,53 @@ function printOperation(operation) {
 
     if (operation === "√") {
         text = "√";
+        input.setAttribute("value", text)
+        document.getElementById("result").className = "";
+        return;
     } else {
         if(text.charAt(0) == "-" && document.querySelector("#content_before").innerHTML != ""){
             document.querySelector("#content_before").innerHTML += "(" + text + ")" + operation;
         }else{
             document.querySelector("#content_before").innerHTML += text + operation;
         }
-        text = "0";
+        
+        
     }
     input.setAttribute("value", text)
+    input = document.querySelector("#content_before").innerHTML;
+    input = input.substring(0, input.length - 1);
+    //console.log(input)
+    try{
+        input = stringValidator(input)
+    }catch (error) {
+        document.getElementById("result").setAttribute("value", "Error");
+        return;
+    }
+    
+    //text = "0";
+
+    if (input === null || input === "0") return;
+
+    try {
+        document.getElementById("result").className = "res";
+        let expression = input
+        .replace(/÷/g, "/")
+        .replace(/x/g, "*")
+        .replace(/√(\d+)/g, (_, num) => { 
+            return Math.sqrt(num).toString();
+        });
+        const openParens = (expression.match(/\(/g) || []).length;
+        const closeParens = (expression.match(/\)/g) || []).length;
+        expression += ")".repeat(openParens - closeParens);
+        result = evaluation(expression);
+        document.getElementById("result").setAttribute("value", result);
+        
+    } catch (error) {
+        document.getElementById("result").setAttribute("value", "Error");
+    }
+
+
+
 }
 
 function cleanInput() {
@@ -66,6 +108,7 @@ function cleanInput() {
 }
 
 function printNegative() {
+    if(document.getElementById("result").getAttribute("class") ==="res") return
     let input = document.getElementById("result")
     let text = input.getAttribute("value");
     if (text === null) return;
@@ -137,6 +180,7 @@ function calculate() {
     if (input === null || input === "0") return;
 
     try {
+        document.getElementById("result").className = "res";
         document.querySelector("#content_before").innerHTML = "";
         let expression = input
         .replace(/÷/g, "/")
