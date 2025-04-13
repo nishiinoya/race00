@@ -40,8 +40,7 @@ function printOperation(operation) {
     //     text = "";
     // }
     if (text.match(/[\d\)]$/) === null && operation !== "√") return;
-    if(operation === "^" && text.indexOf("^") !== -1) return;
-    if(operation === "^" && text.indexOf("%") !== -1) return;
+    if((operation === "^" || operation === "!" || operation === "%") && (text.indexOf("^") !== -1 || text.indexOf("%") !== -1 || text.indexOf("!") !== -1 || text.indexOf("√") !== -1)) return;
     if (operation === "!" || operation === "^" || operation === "%"){
         text += operation
         input.setAttribute("value", text)
