@@ -9,6 +9,10 @@ function printNumber(number) {
     if ((text.match(/\d+$/) !== null && text.match(/\d+$/)[0] == "0") || text.match(/^[A-Za-z]+$/) !== null) {
         text = ""
     }
+    if(number === "pi"){
+        input.setAttribute("value", "3.14159265358979323846")
+        return;
+    }
     if(text.charAt(text.length - 1) == "!") return;
     text += number
     input.setAttribute("value", text)
@@ -42,7 +46,7 @@ function printOperation(operation) {
 
 
     if (operation === "√") {
-        text = "√(";
+        text = "√";
     } else {
         if(text.charAt(0) == "-" && document.querySelector("#content_before").innerHTML != ""){
             document.querySelector("#content_before").innerHTML += "(" + text + ")" + operation;
@@ -137,7 +141,9 @@ function calculate() {
         let expression = input
         .replace(/÷/g, "/")
         .replace(/x/g, "*")
-        .replace(/√\(/g, "Math.sqrt(");
+        .replace(/√(\d+)/g, (_, num) => { 
+            return Math.sqrt(num).toString();
+        });
         const openParens = (expression.match(/\(/g) || []).length;
         const closeParens = (expression.match(/\)/g) || []).length;
         expression += ")".repeat(openParens - closeParens);
@@ -175,7 +181,7 @@ async function insertFromClipboard(){
     let flag = true;
     text.forEach((element)=>{
         //console.log(element)
-        if(!element.match(/^((\()?-?(\d+)(\.\d+)?(!+)?(\))?([+\-x^\/%](\()?-?(\d+)(\.\d+)?(!+)?(\))?)*)? = (\()?-?(\d+)(\.\d+)?(\))?$/)) flag = false;
+        if(!element.match(/^((√)?(\()?-?(\d+)(\.\d+)?(!+)?(\))?([+\-x^\/%](√)?(\()?-?(\d+)(\.\d+)?(!+)?(\))?)*)? = (√)?(\()?-?(\d+)(\.\d+)?(\))?$/)) flag = false;
     })
     if(flag){
         history = text;
